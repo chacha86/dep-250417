@@ -6,12 +6,12 @@ import ClinetPage from "./ClientPage";
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{
+  searchParams: {
     keywordType?: "title" | "content";
-    keyword?: string;
-    pageSize?: number;
-    page?: number;
-  }>;
+    keyword: string;
+    pageSize: number;
+    page: number;
+  };
 }) {
   const {
     keywordType = "title",
