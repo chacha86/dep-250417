@@ -1,6 +1,6 @@
 "use client";
 
-import client from "@/lib/backend/client";
+import { client } from "@/lib/backend/client";
 import { LoginMemberContext } from "@/stores/auth/loginMemberStore";
 import { useRouter } from "next/navigation";
 import { use } from "react";

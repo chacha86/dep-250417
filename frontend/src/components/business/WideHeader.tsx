@@ -7,7 +7,7 @@ import PostMenu from "./PostMenu";
 import ProfileMenu from "./ProfileMenu";
 
 export default function WideHeader({ className }: { className: string }) {
-  const { isLogin, loginMember } = use(LoginMemberContext);
+  const { isLogin } = use(LoginMemberContext);
 
   return (
     <div className={className}>
