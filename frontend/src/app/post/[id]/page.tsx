@@ -6,11 +6,11 @@ export default async function Page({
   params,
 }: {
   params: {
-    id: number;
+    id: string;
   };
 }) {
   const { id } = await params;
-  const res = await fetchPost(id);
+  const res = await fetchPost(Number(id));
 
   if (res.error) {
     return <ErrorPage msg={res.error.msg} />;
