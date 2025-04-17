@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import ClientPage from "./ClientPage";
 
-// Updated Page component without using await on params
 export default async function Page({
   params,
 }: {

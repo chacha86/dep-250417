@@ -5,16 +5,14 @@ import ClientPage from "./ClientPage";
 export default async function Page({
   params,
 }: {
-  params: {
-    id: number;
-  };
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
 
   const response = await client.GET("/api/v1/posts/{id}", {
     params: {
       path: {
-        id,
+        id: parseInt(id),
       },
     },
     headers: {
