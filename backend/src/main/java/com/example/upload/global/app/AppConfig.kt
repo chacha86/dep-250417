@@ -1,7 +1,6 @@
 package com.example.upload.global.app
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import lombok.SneakyThrows
 import org.apache.tika.Tika
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -21,6 +20,7 @@ class AppConfig {
         private lateinit var springServletMultipartMaxFileSize: String
         private lateinit var springServletMultipartMaxRequestSize: String
         private lateinit var tika: Tika
+        private var resourcesSampleDirPath: String? = null
 
         
         fun getObjectMapper(): ObjectMapper = objectMapper
@@ -41,14 +41,20 @@ class AppConfig {
         
         fun getTika(): Tika = tika
 
-        
-        @SneakyThrows
-        fun getResourcesSampleDirPath(): String {
-            val resource =
-                ClassPathResource("sample")
-            return resource.file.absolutePath
-        }
 
+        fun getResourcesSampleDirPath(): String {
+            if (resourcesSampleDirPath == null) {
+                val resource = ClassPathResource("sample")
+
+                resourcesSampleDirPath = if (resource.exists()) {
+                    resource.file.absolutePath
+                } else {
+                    "src/main/resources/sample"
+                }
+            }
+
+            return resourcesSampleDirPath!!
+        }
         
         val isNotProd: Boolean
             get() = !isProd
