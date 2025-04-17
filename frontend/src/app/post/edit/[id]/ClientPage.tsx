@@ -58,8 +58,8 @@ export default function ClinetPage({
       body: {
         title,
         content,
-        published,
-        listed,
+        published: published ?? false,
+        listed: listed ?? false,
       },
       credentials: "include",
     });
