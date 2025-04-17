@@ -4,14 +4,13 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import ClientPage from "./ClientPage";
 
-// Define consistent params type
-type PageParams = {
-  id: string;
-};
-
 // Updated Page component without using await on params
-export default async function Page({ params }: { params: PageParams }) {
-  const id = Number(params.id);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const res = await fetchPost(id);
 
   if (res.error) {
@@ -45,14 +44,14 @@ export default async function Page({ params }: { params: PageParams }) {
 
 // Updated Props type to match Next.js expectations
 type Props = {
-  params: PageParams;
+  params: Promise<{ id: string }>;
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const id = params.id;
+  const { id } = await params;
 
-  const res = await fetchPost(Number(id));
+  const res = await fetchPost(id);
 
   if (res.error) {
     return {
@@ -69,11 +68,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-async function fetchPost(id: number) {
+async function fetchPost(id: string) {
   const response = await client.GET("/api/v1/posts/{id}", {
     params: {
       path: {
-        id,
+        id: parseInt(id),
       },
     },
     headers: {
