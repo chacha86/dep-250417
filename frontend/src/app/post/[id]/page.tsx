@@ -1,16 +1,18 @@
+import ErrorPage from "@/components/business/ErrorPage";
 import { client } from "@/lib/backend/client";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import ClientPage from "./ClientPage";
 
-export default async function Page({
-  params,
-}: {
-  params: {
-    id: string;
-  };
-}) {
-  const { id } = await params;
-  const res = await fetchPost(Number(id));
+// Define consistent params type
+type PageParams = {
+  id: string;
+};
+
+// Updated Page component without using await on params
+export default async function Page({ params }: { params: PageParams }) {
+  const id = Number(params.id);
+  const res = await fetchPost(id);
 
   if (res.error) {
     return <ErrorPage msg={res.error.msg} />;
@@ -41,16 +43,14 @@ export default async function Page({
   return <ClientPage post={post} postGenFiles={postGenFiles} />;
 }
 
-import ErrorPage from "@/components/business/ErrorPage";
-import type { Metadata } from "next";
-
+// Updated Props type to match Next.js expectations
 type Props = {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: PageParams;
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
+  const id = params.id;
 
   const res = await fetchPost(Number(id));
 
