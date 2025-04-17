@@ -42,13 +42,11 @@ export default async function Page({
   return <ClientPage post={post} postGenFiles={postGenFiles} />;
 }
 
-// Updated Props type to match Next.js expectations
-type Props = {
+export async function generateMetadata({
+  params,
+}: {
   params: Promise<{ id: string }>;
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+}): Promise<Metadata> {
   const { id } = await params;
 
   const res = await fetchPost(id);
