@@ -75,7 +75,12 @@ custom:
     domain: localhost
     backUrl: "http://${custom.dev.domain}:${server.port}"
     frontUrl: "http://${custom.dev.domain}:3000"
+  prod:
+    domain: tes.qwas.shop
+    backUrl: "https://api.${custom.prod.domain}"
+    frontUrl: "https://www.${custom.prod.domain}:3000"
   site:
+    domain: "${custom.prod.domain}"
     backUrl: "${custom.dev.backUrl}"
     frontUrl: "${custom.dev.frontUrl}"
   jwt:
