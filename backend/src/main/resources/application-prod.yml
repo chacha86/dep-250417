@@ -30,7 +30,7 @@ logging:
 custom:
   site:
     domain: ${custom.prod.domain}
-    backUrl: "${custom.dev.backUrl}"
-    frontUrl: "${custom.dev.frontUrl}"
+    backUrl: "${custom.prod.backUrl}"
+    frontUrl: "${custom.prod.frontUrl}"
   genFile:
     dirPath: /gen
