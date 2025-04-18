@@ -10,6 +10,13 @@ spring:
     hikari:
       auto-commit: false
 
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            redirect-uri: "${custom.prod.domain}/login/oauth2/code/kakao"
+
 logging:
   level:
     com.example: INFO
@@ -17,6 +24,8 @@ logging:
     org.hibernate.orm.jdbc.bind: INFO
     org.hibernate.orm.jdbc.extract: INFO
     org.springframework.transaction.interceptor: INFO
+
+
 
 custom:
   site:
